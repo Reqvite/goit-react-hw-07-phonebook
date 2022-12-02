@@ -6,21 +6,27 @@ import { ContactForm } from "./ContactForm/ContactForm";
 import { SecondaryTitle } from "./Titles/SecondaryTitle/SecondaryTitle";
 import { Filter } from "./Filter/Filter";
 import { ContactList } from "./ContactList/ContactList";
-import { useDispatch, useSelector } from "react-redux";
-import { getContacts } from "redux/selectors";
+
+import { useDispatch} from "react-redux";
 import { useEffect } from "react";
 import { fetchContacts } from "redux/operations";
 
 
 export const App = () => {
+   const dispatch = useDispatch()
+
+
+   useEffect(() => {
+  dispatch(fetchContacts());
+   }, [dispatch]);
 
   return (
       <Container display="flex" flexDirection="column" alignItems="center" padding="3">
         <MainTitle title='Phonebook' />
         <ContactForm />
-        <SecondaryTitle title='Contacts' />
-        <Filter/>
-        <ContactList  />
+      <SecondaryTitle title='Contacts' />
+      <Filter />  
+            <ContactList/>
       </Container>
   )  
 }
