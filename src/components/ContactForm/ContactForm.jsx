@@ -1,32 +1,30 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from "redux/contactsSlice";
-import { nanoid } from "nanoid";
-
 import { FormStyled, Label, Input, Button } from "./ContactForm.style";
+import { useAddContactMutation, useGetContactsQuery } from 'redux/contactsApi';
 
 
 export const ContactForm = () => {
-
-  const contacts = useSelector(state => state.contacts)
-
-  const dispatch = useDispatch()
-
+  const [addMaterial] = useAddContactMutation();
+const { data: contacts } = useGetContactsQuery()
     const handleSubmit = e => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements[0].value
-    const number = form.elements[1].value
+    const phone = form.elements[1].value
     const contact = {
-      id: nanoid(), name, number 
-    };
-              if (contacts.map((({name}) => name.toLowerCase())).includes(name.toLowerCase())) {
+       name, phone 
+      };
+      try {
+              if (contacts?.map((({name}) => name.toLowerCase())).includes(name.toLowerCase())) {
        alert(`${name} is already in contacts.`)
-      } else {
-         dispatch(addContact(contact))
+              } else {
+              addMaterial(contact)       
+      }
+      } catch (error){
+        console.log(error);
+      }
+          form.reset();
     }  
-        form.reset();
-  }
-
+      
     return (
    <FormStyled onSubmit={handleSubmit}>
  <Label htmlFor="name">Name
@@ -50,7 +48,7 @@ export const ContactForm = () => {
     <Button type='submit'>Add contact</Button>
     </FormStyled>
     )
-}
+    }
 
 
    
