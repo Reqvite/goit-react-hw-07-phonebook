@@ -3,20 +3,22 @@ import { List, Notification, ListItem } from "./ContactList.style";
 
 import { Contact } from 'components/Contact/Contact'; 
 import { fetchContacts } from 'redux/operations';
+import { useEffect } from 'react';
+
+import { getContacts } from 'redux/selectors';
 
 export const ContactList = () => {
-   const { items: contacts, isLoading, error } = useSelector(fetchContacts);
+
+  const dispatch = useDispatch()
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(state => state.filter)
+  
 
  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-//  const renderFilterList = () => {
-//     return contacts
-//       .filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase())) 
-//   }
+  dispatch(fetchContacts());
+ }, [dispatch]);
   
-//  const filterContacts = renderFilterList()
-  
+  console.log(contacts);
     return (
       <List>
         {contacts?.map(contact => 

@@ -13,7 +13,14 @@ const rootReducer = combineReducers({
 
 
 export const store = configureStore({
-    reducer: rootReducer,
+  reducer: {
+    contacts: contactsReducer,
+  },
+     
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
    
 })
 

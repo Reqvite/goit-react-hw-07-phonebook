@@ -6,7 +6,9 @@ export const Filter = () => {
    
 const dispatch = useDispatch()
  
-    const handleFilter = e => dispatch(contactsFilter(e.target.value))
+    const handleFilter = e => { 
+        dispatch(contactsFilter(e.target.value))
+    }
     
     return (
         <>
