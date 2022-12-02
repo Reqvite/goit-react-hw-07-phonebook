@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const List = styled.ul`
   margin-top: ${p => p.theme.space[3]}px;
   padding: ${p => p.theme.space[3]}px;
- 
+
  width: 80%;
   max-width: 550px;
   margin: 1em auto;
